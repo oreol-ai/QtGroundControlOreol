@@ -31,7 +31,8 @@ ApplicationWindow {
 
     Component.onCompleted: {
         // Start the sequence of first run prompt(s)
-        firstRunPromptManager.nextPrompt()
+        //firstRunPromptManager.nextPrompt()
+        showSettingsTool()
     }
 
     /// Saves main window position and size and re-opens it in the same position and size next time
@@ -332,47 +333,7 @@ ApplicationWindow {
                         Layout.margins: toolSelectDialog._margins
                         spacing:        ScreenTools.defaultFontPixelWidth
 
-                        SubMenuButton {
-                            height:             toolSelectDialog._toolButtonHeight
-                            Layout.fillWidth:   true
-                            text:               qsTr("Plan Flight")
-                            imageResource:      "/qmlimages/Plan.svg"
-                            onClicked: {
-                                if (mainWindow.allowViewSwitch()) {
-                                    mainWindow.closeIndicatorDrawer()
-                                    mainWindow.showPlanView()
-                                }
-                            }
-                        }
-
-                        SubMenuButton {
-                            id:                 analyzeButton
-                            height:             toolSelectDialog._toolButtonHeight
-                            Layout.fillWidth:   true
-                            text:               qsTr("Analyze Tools")
-                            imageResource:      "/qmlimages/Analyze.svg"
-                            visible:            QGroundControl.corePlugin.showAdvancedUI
-                            onClicked: {
-                                if (mainWindow.allowViewSwitch()) {
-                                    mainWindow.closeIndicatorDrawer()
-                                    mainWindow.showAnalyzeTool()
-                                }
-                            }
-                        }
-
-                        SubMenuButton {
-                            id:                 setupButton
-                            height:             toolSelectDialog._toolButtonHeight
-                            Layout.fillWidth:   true
-                            text:               qsTr("Vehicle Configuration")
-                            imageResource:      "/qmlimages/Gears.svg"
-                            onClicked: {
-                                if (mainWindow.allowViewSwitch()) {
-                                    mainWindow.closeIndicatorDrawer()
-                                    mainWindow.showVehicleConfig()
-                                }
-                            }
-                        }
+                  
 
                         SubMenuButton {
                             id:                 settingsButton
@@ -483,34 +444,6 @@ ApplicationWindow {
             height:         ScreenTools.toolbarHeight
             color:          qgcPal.toolbarBackground
 
-            RowLayout {
-                id:                 toolDrawerToolbarLayout
-                anchors.leftMargin: ScreenTools.defaultFontPixelWidth
-                anchors.left:       parent.left
-                anchors.top:        parent.top
-                anchors.bottom:     parent.bottom
-                spacing:            ScreenTools.defaultFontPixelWidth
-
-                QGCLabel {
-                    font.pointSize: ScreenTools.largeFontPointSize
-                    text:           "<"
-                }
-
-                QGCLabel {
-                    id:             toolbarDrawerText
-                    text:           qsTr("Exit") + " " + toolDrawer.toolTitle
-                    font.pointSize: ScreenTools.largeFontPointSize
-                }
-            }
-
-            QGCMouseArea {
-                anchors.fill: toolDrawerToolbarLayout
-                onClicked: {
-                    if (mainWindow.allowViewSwitch()) {
-                        toolDrawer.visible = false
-                    }
-                }
-            }
         }
 
         Loader {
